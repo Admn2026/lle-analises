@@ -725,7 +725,7 @@ const notas = [
       {tipo:'Almoço gestores', qtd:125,  unit:29.65}, {tipo:'Café da tarde',   qtd:1001, unit:4.74},
       {tipo:'Café logística',  qtd:260,  unit:4.74},  {tipo:'Jantar',          qtd:270,  unit:21.72},
       {tipo:'Lanche noturno',  qtd:270,  unit:4.74},  {tipo:'Café sábado',     qtd:6,    unit:8.29},
-      {tipo:'Almoço sábado',   qtd:6,    unit:36.50}, {tipo:'Jantar sábado',   qtd:1,    unit:36.50},
+      {tipo:'Almoço sábado',   qtd:6,    unit:36.65}, {tipo:'Jantar sábado',   qtd:1,    unit:36.65},
       {tipo:'Lanche especial', qtd:1,    unit:8.29},
     ]
   },
@@ -737,7 +737,7 @@ const notas = [
       {tipo:'Almoço gestores', qtd:122,  unit:29.65}, {tipo:'Café da tarde',   qtd:1054, unit:4.74},
       {tipo:'Café logística',  qtd:286,  unit:4.74},  {tipo:'Jantar',          qtd:297,  unit:21.72},
       {tipo:'Lanche noturno',  qtd:297,  unit:4.74},  {tipo:'Café sábado',     qtd:3,    unit:8.29},
-      {tipo:'Almoço sábado',   qtd:3,    unit:36.50}, {tipo:'Jantar sábado',   qtd:1,    unit:36.50},
+      {tipo:'Almoço sábado',   qtd:3,    unit:36.65}, {tipo:'Jantar sábado',   qtd:1,    unit:36.65},
       {tipo:'Lanche especial', qtd:1,    unit:8.29},
     ]
   },
@@ -822,7 +822,7 @@ function renderList(raw, branch, pdfMap, mealOrder){
   const maxVal = Math.max(...list.map(n=>n.valor));
   const total = list.reduce((s,n)=>s+n.valor,0);
   // preço da NF anterior para indicar reajuste
-  list.forEach((n,i)=>{ n.prev = i ? list[i-1] : null; });
+  list.forEach((n,i)=>{ n.prev = i ? list[i-1] : null; n.var = n.prev ? Math.round((n.valor/n.prev.valor-1)*1000)/10 : null; });
   const months = {};
   list.forEach(n=>{ n.emMes=+n.emissao.slice(3,5); n.emAno=+n.emissao.slice(6); const k=n.emAno*100+n.emMes; (months[k] ||= []).push(n); });
   let html = '';
